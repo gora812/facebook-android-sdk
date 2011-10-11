@@ -138,11 +138,15 @@ public class FbDialog extends Dialog {
                     mListener.onFacebookError(new FacebookError(error));
                 }
 
-                FbDialog.this.dismiss();
+                try{
+                    FbDialog.this.dismiss();
+                }catch (RuntimeException e) {}
                 return true;
             } else if (url.startsWith(Facebook.CANCEL_URI)) {
                 mListener.onCancel();
-                FbDialog.this.dismiss();
+                try{
+                    FbDialog.this.dismiss();
+                }catch (RuntimeException e) {}
                 return true;
             } else if (url.contains(DISPLAY_STRING)) {
                 return false;
@@ -159,7 +163,9 @@ public class FbDialog extends Dialog {
             super.onReceivedError(view, errorCode, description, failingUrl);
             mListener.onError(
                     new DialogError(description, errorCode, failingUrl));
-            FbDialog.this.dismiss();
+            try{
+                FbDialog.this.dismiss();
+            }catch (RuntimeException e) {}
         }
 
         @Override
@@ -176,7 +182,9 @@ public class FbDialog extends Dialog {
             if (title != null && title.length() > 0) {
                 mTitle.setText(title);
             }
-            mSpinner.dismiss();
+            try{
+                mSpinner.dismiss();
+            }catch (RuntimeException e) {}
         }
 
     }
